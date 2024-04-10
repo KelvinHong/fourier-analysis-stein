@@ -1,0 +1,462 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Lachaise Assignment
+% LaTeX Template
+% Version 1.0 (26/6/2018)
+%
+% This template originates from:
+% http://www.LaTeXTemplates.com
+%
+% Authors:
+% Marion Lachaise & François Févotte
+% Vel (vel@LaTeXTemplates.com)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass{article}
+
+\input{structure.tex} % Include the file specifying the document structure and custom commands
+
+%----------------------------------------------------------------------------------------
+%	ASSIGNMENT INFORMATION
+%----------------------------------------------------------------------------------------
+
+\title{Fourier Analysis Stein: Chapter 6. Problems.} % Title of the assignment
+
+\author{Kelvin Hong\\ \texttt{kh.boon2@gmail.com}} % Author name and email address
+
+\date{Xiamen University Malaysia, Asia Pacific University Malaysia --- \today} % University, school and/or department name(s) and a date
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+\maketitle % Print the title
+
+\section{Problems}
+
+\begin{enumerate}
+    \item Let $J_n$ denote the $n^{th}$ order Bessel function, for $n\in \mathbb Z$. Prove that 
+    \begin{enumerate}[(a)]
+        \item $J_n(\rho)$ is real for all real $\rho$. 
+
+        \begin{solution}
+            Taking the complex conjugate of the Bessel function, we have
+            \begin{align*}
+                2\pi \overline{J_n(\rho)} &= 
+                \int_0^{2\pi} e^{-i\rho\sin\theta} e^{in\theta}\, d\theta \\
+                &= \int_0^{-2\pi} e^{i\rho\sin\theta} e^{-in\theta}\, (-d\theta) \\
+                &= \int_{-2\pi}^0 e^{i\rho\sin\theta} e^{-in\theta}\, d\theta \\
+                &= \int_0^{2\pi} e^{i\rho\sin\theta} e^{-in\theta}\, d\theta \text{ (Periodicity) } \\ 
+                &= 2\pi J_n(\rho).
+            \end{align*}
+            This shows $J_n(\rho)$ is real when $\rho$ is real.
+        \end{solution}
+        
+
+        \item $J_{-n}(\rho)=(-1)^n J_n(\rho)$.
+
+        \begin{solution}
+            The question is equivalent of showing $J_{-n}(\rho)+J_n(\rho)=0$ when $n$ is odd and 
+            $J_{-n}(\rho)-J_n(\rho)=0$ when $n$ is even. 
+
+            When $n$ is even, we have 
+            \begin{align*}
+                J_n(\rho)-J_{-n}(\rho) &= \frac{i}{\pi} \int_0^{2\pi} e^{i\rho\sin\theta} \sin(n\theta)\, d\theta
+            \end{align*}
+
+            The second half of the integral can be transformed into below by substitution $u=2\pi-\theta$:
+            \begin{align*}
+                \int_\pi^{2\pi} e^{i\rho\sin\theta} \sin(n\theta)\, d\theta 
+                &= \int_\pi^0 e^{i\rho\sin(2\pi-u)} \sin(n(2\pi-u))\, (-du) \\
+                &= -\int_0^\pi e^{-i\rho\sin u} \sin(nu)\, du \\
+            \end{align*}
+            Notice this is true for all integer $n$, not just even $n$, but we will use it in the following derivation 
+            with another substitution $t=\theta-\pi/2$:
+            \begin{align*}
+                J_n(\rho)-J_{-n}(\rho) &= \frac{2i}{\pi} \int_0^{\pi} \cos(\rho\sin\theta) \sin(n\theta)\, d\theta \\
+                &= \frac{2i}{\pi} \int_{-\pi/2}^{\pi/2} \cos(\rho\sin(t+\pi/2)) \sin(n(t+\pi/2))\, dt \\
+                &= \pm \frac{2i}{\pi} \int_{-\pi/2} ^ {\pi/2} \cos(\rho \cos t) \sin(nt)\, dt \\
+                &= 0
+            \end{align*}
+            On the last second line, when $n\equiv 0\pmod 4$ it will takes the positive sign, and when $n\equiv 2\pmod 4$ 
+            it will takes the negative sign, but either way the integrand is an odd function on $t$ and the value will be zero. 
+
+            A similar two-times variable substitution when $n$ is odd will give us the proof for $J_{-n}(\rho)+J_n(\rho)=0$.
+        \end{solution}
+
+        \item $2J_n'(\rho)=J_{n-1}(\rho)-J_{n+1}(\rho)$.
+        
+        \begin{solution}
+            We have
+            \begin{align*}
+                2J_n'(\rho) &= \frac1{\pi} \int_0^{2\pi} ie^{i\rho\sin\theta} e^{-in\theta}\sin\theta \, d\theta \\
+                &= \frac1\pi \int_0^{2\pi} e^{i\rho\sin\theta} e^{-in\theta}\dfrac{e^{i\theta}-e^{-i\theta}}2 \, d\theta \\
+                &= J_{n-1}(\rho)-J_{n+1}(\rho).
+            \end{align*}
+        \end{solution}
+
+        \item $\left(\frac{2n}\rho\right) J_n(\rho) = J_{n-1}(\rho) + J_{n+1}(\rho)$.
+        
+        \begin{solution}
+            This identity can be proven using integration by parts. RHS is 
+            $$\frac1{2\pi} \int_0^{2\pi} e^{i\rho\sin\theta} e^{-in\theta} \cdot 2\cos\theta \, d\theta.$$
+
+            Consider letting $u=e^{-in\theta}$, $dv=2e^{i\rho\sin\theta} \cos\theta d\theta$, then we have 
+            $du =-in e^{-in\theta} d\theta$, $v = \frac2{i\rho} e^{i\rho \sin\theta}. $
+
+            Therefore, 
+            \begin{align*}
+                \text{RHS} &= \frac1{2\pi} \left(\left[\frac2{i\rho}e^{i\rho\sin\theta} e^{-in\theta}\right]_0^{2\pi} 
+                    + \frac{2n}\rho\int_0^{2\pi} e^{i\rho\sin\theta}e^{-in\theta}\, d\theta\right) \\
+                    &= \frac1{2\pi} \left(\frac2{i\rho} - \frac2{i\rho}\right) + \frac{2n}\rho J_n(\rho) \\
+                    &= \frac{2n}\rho J_n(\rho).
+            \end{align*}
+        \end{solution}
+
+        \item $(\rho^{-n}J_n(\rho))' = -\rho^{-n}J_{n+1}(\rho)$. 
+        
+        \begin{solution}
+            It will be easier to prove this identity by using previous identities. We have
+            \begin{align*}
+                LHS &= -n\rho^{-n-1}J_n(\rho) + \rho^{-n}J_n(\rho)' \\
+                &= -\dfrac{\rho^{-n}}{2} \cdot \left(\dfrac{2n}\rho J_n(\rho)\right) + \dfrac{\rho^{-n}}2(J_{n-1}(\rho) - J_{n+1}(\rho)) \\
+                &= -\dfrac{\rho^{-n}}2(J_{n-1}(\rho) + J_{n+1}(\rho)) + \dfrac{\rho^{-n}}2(J_{n-1}(\rho) - J_{n+1}(\rho)) \\
+                &= -\rho^{-n} J_{n+1}(\rho).
+            \end{align*}
+        \end{solution}
+
+        \item $(\rho^n J_n(\rho))' = \rho^n J_{n-1}(\rho)$.
+        
+        \begin{solution}
+            Similar as previous identity, we have 
+
+            \begin{align*}
+                LHS &= n\rho^{n-1} J_n(\rho) + \rho^n J_n'(\rho) \\
+                &= \frac{\rho^n}2(J_{n-1}(\rho) + J_{n+1}(\rho)) + \frac{\rho^n}2(J_{n-1}(\rho) - J_{n+1}(\rho)) \\
+                &= \rho^n J_{n-1}(\rho).
+            \end{align*}
+        \end{solution}
+
+        \item $J_n(\rho)$ satisfies the second order differential equation
+        $$J_n''(\rho) + \rho^{-1}J_n'(\rho) + (1-n^2/\rho^2)J_n(\rho) = 0.$$
+
+        \begin{solution}
+            We basically need to use the identities from (e) and (f), noticing how they can decrease the index $n\to n-1$ and then 
+            increase it again $n\to n+1$. 
+
+            We use $J_n$ as a shorthand notation for $J_n(\rho)$ temporarily for the derivation below.
+            \begin{align*}
+                \because (\rho^n J_n)' &= \rho^n J_{n-1} \\
+                n\rho^{n-1} J_n + \rho^n J_n' &= \rho^n J_{n-1} \\
+                n\rho^{-n}J_n + \rho^{-n+1}J_n' &= \rho^{-(n-1)}J_{n-1} \\
+                \therefore \rho^{-n+1}J_n''-(n-1)\rho^{-n}J_n'+n\rho^{-n}J_n'-n^2\rho^{-n-1}J_n&=(\rho^{-(n-1)} J_{n-1})'\\
+                \rho^{-n+1}J_n'' + \rho^{-n}J_n' - n^2\rho^{-n-1} J_n &= -\rho^{-n+1}J_n\\
+                J_n'' + \rho^{-1}J_n' + (1-n^2\rho^{-2}) J_n&=0.
+            \end{align*}
+        \end{solution}
+
+        \item Show that 
+        
+        \begin{solution}
+            $$J_n(\rho) = \left(\dfrac\rho2\right)^n \sum_{m=0}^\infty (-1)^m \dfrac{\rho^{2m}}{2^{2m}m!(n+m)!}.$$
+
+            Notice that from (g), $J_n(\rho)$ satisfies a second order ODE in the form of $\rho^2 J_n'' + \rho J_n' + (\rho^2-n^2)J_n=0$, 
+            which can be solved by Frobenius method. 
+
+            For some convenient reason, let's assume $n\geq 1$ for now. We will then prove for $n=0$. Since there is factorial, we assume 
+            we only have to prove for $n\geq 0$. 
+
+            Let $J_n(\rho)$ has the form
+            $$J_n(\rho) = \sum_{k=0}^\infty A_k\rho^{k+r}, \quad A_0\neq 0.$$
+            Then we have 
+            \begin{align*}
+                J_n'(\rho) &= \sum_{k=0}^\infty (k+r)A_k \rho^{k+r-1}, \\
+                J_n''(\rho) &= \sum_{k=0}^\infty (k+r)(k+r-1) A_k \rho^{k+r-2}.
+            \end{align*}
+
+            Substitutes into the second order ODE, we have 
+            $$\sum_{k=0}^\infty [(k+r)(k+r-1) + k+r+\rho^2-n^2]A_k\rho^{k+r} = 0.$$
+
+            Cancel out $\rho^r$, using the assumption that $A_0\neq 0$ and substitute $\rho=0$, we obtain the indicial equation: 
+            $$r(r-1)+r-n^2=0 \implies r=\pm n.$$
+
+            Seems like we have two possibilities for $r$, but $r=-n$ is actually impossible because $J_n(\rho)$ is a finite function, 
+            it wouldn't have any singularity. 
+            We thus have $r=n$. 
+
+            Simplify the equations, we have 
+            \begin{align*}
+                \sum_{k=0}^\infty [(k+n)(k+n-1) + k+n+\rho^2-n^2] A_k \rho^k &= 0\\
+                \sum_{k=0}^\infty (k^2+2kn+\rho^2) A_k\rho^k&=0 \\
+                \sum_{k=0}^\infty (k^2+2kn)A_k\rho^k + \sum_{k=0}^\infty A_k\rho^{k+2} &= 0\\
+                (2n+1)A_1 \rho + \sum_{k=2}^\infty [k(k+2n) A_k + A_{k-2}] \rho^k&=0.
+            \end{align*}
+
+            The first term tells us $A_1=0$ since we can cancel a $\rho$ everywhere and let $\rho=0$.
+            Then we also have $A_k = -\frac1{k(k+2n)} A_{k-2} $ for $k\geq 2$. 
+            This shows that $A_{2m+1}=0$ for all integer $m\geq 0$, and we made some progress that proves the series only has 
+            even power terms.
+            
+            Now let $k=2m$ for $m\geq 1$, we have 
+            \begin{align*}
+                A_{2m} &= -\frac1{4m(m+n)} A_{2m-2}  \\
+                &= (-1)^2 \dfrac{A^{2m-4}}{4^2 m(m-1)(m+n)(m-1+n)} \\
+                &= (-1)^m \dfrac{A_0 n!}{4^mm!(m+n)!}.
+            \end{align*}
+
+            We now only have to show $A_0=1/(2^n n!)$ and the proof will be done for $n\geq 1$.
+            To show this, we first notice that as $r=n$, that $\lim_{\rho\to 0}\rho^{-m}J_n(\rho) = 0$ for any integer $m<n$.  
+            Then, we prove by induction on $n$: We denote temporarily $A_0(n)$ to be our $A_0$ coefficient and want to show that 
+            $A_0(n) = \frac1{2^nn!}$. 
+
+            First it is not hard to see $A_0(n) = \lim_{\rho\to 0} \rho^{-n}J_n(\rho)$, for $n=0$ we have 
+            $J_0(0)=\frac1{2\pi} \int_0^{2\pi} d\theta=1$, and for $n=1$ we use the identity from (d): 
+            \begin{align*}
+                \frac{J_1(\rho)}{\rho} &= \frac{J_0(\rho) + J_2(\rho)}{2} \\
+                \therefore A_0(1) &=\lim_{\rho\to 0} \frac{J_1(\rho)}{\rho} \\
+                &= \frac12.
+            \end{align*}
+
+            Now assumes $A_0(n) = \frac1{2^nn!}$ for some $n\geq 1$, then 
+            \begin{align*}
+                \frac{J_{n+1}(\rho)}{\rho} &= \frac{J_n(\rho) + J_{n+2}(\rho)}{2n+2} \\
+                \frac{J_{n+1}(\rho)}{\rho^{n+1}} &= \frac{\rho^{-n}J_n(\rho) + \rho^{-n} J_{n+2}(\rho)}{2(n+1)} \\
+                \therefore A_0(n+1) &= \dfrac{A_0(n)}{2(n+1)} \\
+                &= \frac{1}{2^{n+1}(n+1)!}.
+            \end{align*}
+
+            This shows the series expansion for $J_n(\rho)$ is true for $n\geq 1$.  
+
+            To prove the series expansion is also true when $n=0$, we just use the identity from (f) when $n=1$. 
+        \end{solution}
+
+        \item Show that for all integers $n$ and all real numbers $a$ and $b$ we have 
+        $$J_n(a+b) = \sum_{\ell\in\mathbb Z}J_\ell(a) J_{n-\ell}(b).$$
+
+        \begin{solution}
+            By definition of Bessel's function, the Fourier series of $e^{i\rho\sin\theta}$ is 
+            $$e^{i\rho\sin\theta} = \sum_{n\in\mathbb Z} J_n(\rho) e^{in\theta}.$$
+
+            Using this, we can derive the identity.
+
+            \begin{align*}
+                J_n(a+b) &= \frac1{2\pi} \int_0^{2\pi} e^{i(a+b)\sin\theta} e^{-in\theta} d\theta \\
+                &= \frac1{2\pi} \int_0^{2\pi} \left(\sum_{\ell\in\mathbb Z} J_\ell (a) e^{i\ell\theta}\right)
+                    \left(\sum_{m\in\mathbb Z} J_m (a) e^{im\theta}\right) e^{-in\theta} d\theta\\
+                    &= \sum_{\ell\in\mathbb Z}\sum_{m\in\mathbb Z} J_\ell(a) J_m(b) \frac1{2\pi} \int_0^{2\pi} e^{i(\ell+m-n)\theta} d\theta\\
+                    &= \sum_{\ell\in\mathbb Z} J_{\ell}(a) J_{n-\ell}(b). 
+            \end{align*}
+            
+            The last equation is because $\int_0^{2\pi} e^{ik\theta} d\theta=2\pi$ when $k=0$, but become zero when $k$ is any non-zero integer.
+        \end{solution}
+        
+    \end{enumerate}
+
+    \item Another formula for $J_n(\rho)$ that allows one to define Bessel functions for non-integral values of $n$, $(n > -1/2)$ is 
+    $$J_n(\rho) = \dfrac{(\rho/2)^n}{\Gamma(n+1/2)\sqrt\pi} \int_{-1}^1 e^{i\rho t} (1-t^2)^{n-(1/2)}\, dt.$$
+
+    \begin{enumerate}[(a)]
+        \item Check that the above formula agrees with the definition of $J_n(\rho)$ for integral $n\geq 0$. 
+        
+        \begin{solution}
+            When $n=0$, the RHS become
+            \begin{align*}
+                RHS&= \dfrac1\pi \int_{-1}^1 \dfrac{e^{i\rho t}}{\sqrt{1-t^2}} \, dt.
+            \end{align*}
+            Let $t=\sin\theta$, we have
+            $$RHS = \dfrac1\pi \int_{-\pi/2}^{\pi/2} e^{i\rho \sin\theta} \, d\theta 
+            = \dfrac1{2\pi} \int_0^{2\pi} e^{i\rho \sin\theta} \, d\theta = J_0(\rho). $$
+            
+            Now assume that the identify works for some non-negative integer $n$, using the 
+            identity from 1(e) and integration by parts, we see that 
+            \begin{align*}
+                J_{n+1}(\rho) &= -\rho^n \dfrac{d}{d\rho} (\rho^{-n} J_n(\rho))\\
+                &= -\rho^n \dfrac{d}{d\rho} \left[\dfrac1{2^n \Gamma(n+1/2)\sqrt\pi} 
+                    \int_{-1}^1 e^{i\rho t}(1-t^2)^{n-1/2}dt\right] \\
+                &= -\dfrac{i\rho^n}{2^n\Gamma(n+1/2)\sqrt\pi} \int_{-1}^1 e^{i\rho t} t(1-t^2)^{n-1/2}dt \\
+                &= -\dfrac{i\rho^n}{2^n\Gamma(n+1/2)\sqrt\pi} \left[-\dfrac{e^{i\rho t}(1-t^2)^{n+1/2}}{2n+1} \bigg|_{-1}^1
+                    +\dfrac{i\rho}{2(n+1/2)} \int_{-1}^1 e^{i\rho t} (1-t^2)^{n+1/2}dt\right]\\
+                &= \left(\dfrac\rho2\right)^{n+1} \dfrac1{\Gamma(n+3/2)\sqrt\pi} \int_{-1}^1 e^{i\rho t}(1-t^2)^{n+1/2}dt.
+            \end{align*} 
+            By induction, the identity now works for every non-negative integer $n$. 
+                
+        \end{solution}
+
+        \item Note that $J_{1/2}(\rho) = \sqrt{\dfrac2\pi}\rho^{-1/2}\sin\rho$. 
+        
+        \begin{solution}
+            We simply have
+            \begin{align*}
+                J_{1/2}(\rho) &= \dfrac{\sqrt{\rho/2}}{\sqrt\pi} \int_{-1}^1 e^{i\rho t} dt\\
+                &= \sqrt{\dfrac\rho{2\pi}} \cdot \dfrac{e^{i\rho} - e^{-i\rho}}{i\rho}\\
+                &= \sqrt{\dfrac2\pi} \rho^{-1/2}\sin\rho.
+            \end{align*}
+        \end{solution}
+
+        \item Prove that 
+            $$\lim_{n\to-1/2} J_n(\rho) = \sqrt{\dfrac2\pi} \rho^{-1/2} \cos\rho.$$
+
+        \begin{solution}
+            \href{https://math.stackexchange.com/questions/4376199/a-definite-integral-in-the-bessel-function-j-1-2s-from-stein-shakarchi/4376415#4376415}{Solution reference here.}
+
+            Directly calculate the limit won't work, so we are looking at a way of raising the power
+            of say $(1-t^2)$ from $n-1/2$ to $n+1/2$, which implies $K_{n+1} = K_n/(2n+1)$. 
+            
+            To avoid typing a lot of constants, we let $K_n=\dfrac1{2^n \Gamma(n+1/2)\sqrt\pi}$. 
+
+            Observing the integrand, we can reflect it: 
+            $$J_n(\rho)=2\rho^n K_n\int_0^1 \cos(\rho t) (1-t^2)^{n-1/2}.$$
+
+            Then, we use a slightly non-trivial integration by parts of 
+            $u=\dfrac{\cos \rho t}{t}, dv = t(1-t^2)^{n-1/2}$ with
+            $du=\dfrac{-t\rho \sin\rho t-\cos\rho t}{t^2}, v = \dfrac{1-(1-t^2)^{n+1/2}}{2n+1}$.
+
+            The additional constant $\dfrac1{2n+1}$ in $v$ is to make the non-integral part easy to calculate,
+            which in turns actually make other calculations easier as well.
+            Following this setting we have
+            \begin{align*}
+                J_n(\rho)&= 2\rho^n K_{n+1} \cos\rho + 2\rho^n K_n \int_0^1 (t\rho \sin\rho t + \cos\rho t)\dfrac{1-(1-t^2)^{n+1/2}}{t^2(2n+1)}dt.
+            \end{align*}
+            We have to show the second term converges to $0$ when $n\to -1/2$, although it should be, I still struggle to find
+            ways to prove this, so I am going to leave this here for now.
+        \end{solution}
+
+        \item Observe that the formulas we have proved in the text giving $F_0$ in terms of $f_0$ (when describing
+        the Fourier transform of a radial function) take the form
+
+        $$F_0(\rho) = 2\pi \rho^{-(d/2)+1} \int_0^\infty J_{(d/2)-1}(2\pi \rho r)f_0(r) r^{d/2}\, dr,$$
+
+        for $d=1,2,$ and $3,$ if one uses the formulas above with the understanding that
+        $J_{-1/2}(\rho)=\lim_{n\to-1/2}J_n(\rho)$.
+        It turns out that the relation between $F_0$ and $f_0$ given by the equation above is valid in all dimensions $d$.
+
+        \begin{solution}
+            I can't solve this bro, it is too hard...
+        \end{solution}
+    \end{enumerate}
+
+    \item We observed that the solution $u(x,t)$ of the Cauchy problem for the wave equation given by
+    formula (3) depends only on the initial data on the base on the backward light cone.
+    It is natural to ask if this property is shared by \textit{any} solution of the wave equation.
+    An affirmative answer would imply uniqueness of the solution.
+
+    Let $B(x_0, r_0)$ denote the closed ball in the hyperplane $t=0$ centered at $x_0$ and of radius
+    $r_0$. The \textbf{backward light cone} with base $B(x_0, r_0)$ is defined by 
+    $$\mathcal L_{B(x_0,r_0)} = \{ (x,t)\in\mathbb R^d \times \mathbb R: \abs{x-x_0} \leq r_0-t, \, 0\leq t\leq r_0\}.$$
+
+    \begin{theorem}
+        Suppose that $U(x,t)$ is a $C^2$ function on the closed upper half-plane
+        $\{(x,t): x\in\mathbb R^d, t\geq 0\}$ that solves the wave equation
+        $$\dfrac{\partial^2 u}{\partial t^2} = \Delta u.$$
+
+        If $u(x,0)=\dfrac{\partial u}{\partial t}(x,0)=0$ for all $x\in B(x_0, r_0)$, then
+        $u(x,t)=0$ for all $(x,t)\in\mathcal L_{B(x_0,r_0)}$.
+    \end{theorem}
+
+    In words, if the initial data of the Cauchy problem for the wave equation vanishes on a ball $B$,
+    then \textit{any} solution $u$ of the problem vanishes in the backward light cone with base $B$.
+    The following steps outline a proof of the theorem.
+
+    \begin{enumerate}
+        \item Assume that $u$ is real. For $0\leq t\leq r_0$ let $B_t(x_0,r_0)=\{x: \abs{x-x_0} \leq r_0-t\}$,
+        and also define
+        $$\nabla u(x,t) = \left(\dfrac{\partial u}{\partial x_1},\dots,\dfrac{\partial u}{\partial x_d},\dfrac{\partial u}{\partial t}\right).$$
+
+        Now consider the energy integral
+        \begin{align*}
+            E(t) &= \dfrac12 \int_{B_t(x_0,r_0)}\abs{\nabla u}^2 dx\\
+            &= \dfrac12 \int_{B_t(x_0,r_0)} \left(\dpard{u}{t}\right)^2 + \sum_{j=1}^d \left(\dpard{u}{x_j}\right)^2 dx.
+        \end{align*}
+
+        Observe that $E(t)\geq 0$ and $E(0)=0$. Prove that
+        $$E'(t) = \int_{B_t(x_0, r_0)} \dpard{u}{t} \dpard[2]{u}{t} + \sum_{j=1}^d \dpard{u}{x_j}\dfrac{\partial^2 u}{\partial x_j \partial t}dx - \dfrac12 \int_{\partial B_t(x_0,r_0)} \abs{\nabla u}^2 d\sigma(\gamma).$$
+
+        \begin{solution}
+            First I was naively differentiating the integrand and only get the first term, but after that
+            realize the domain of integral depends on $t$, which prevents me from doing so! Let's see the proper solution.
+
+            This solution uses \href{https://en.wikipedia.org/wiki/Leibniz_integral_rule}{Leibniz Integral Rule}.
+            We can split the integral like so:
+            \begin{align*}
+                E(t) &= \dfrac12 \int_t^{r_0} \left(\int_{\partial B_r(x_0, r_0)} \abs{\nabla u}^2 d\sigma(\gamma)\right)dr
+            \end{align*}
+            Note that now only the outer integral depends on $t$, we can thus apply Leibniz integral rule and obtain
+            \begin{align*}
+                E'(t) &= \dfrac12 \int_t^{r_0} \left(\int_{\partial B_r(x_0, r_0)} \dpard{}{t} \abs{\nabla u}^2 d\sigma(\gamma)\right) dr
+                    -\dfrac12 \int_{\partial B_t(x_0, r_0)} \abs{\nabla u}^2 d\sigma(\gamma).
+            \end{align*}
+            The term related to $r_0$ is differentiated to none as it is only a constant, now it should be obvious the identity is true.
+        \end{solution}
+
+        \item Show that 
+        $$\dpard{}{x_j}\left[\dpard{u}{x_j} \dpard{u}{t}\right] = \dpard{u}{x_j} \dfrac{\partial^2 u}{\partial x_j\partial t} + \dpard[2]{u}{x_j} \dpard{u}{t}.$$
+
+        \begin{solution}
+            This is a standard product rule.
+        \end{solution}
+
+        \item Use the last identity, the divergence theorem, and the fact that $u$ solves the wave equation
+        to prove that
+        $$E'(t) = \int_{\partial B_t(x_0, r_0)} \sum_{j=1}^d \dpard{u}{x_j} \dpard{u}{t} \varv_j d\sigma(\gamma) - \frac12 \int_{\partial B_t(x_0, r_0)} \abs{\nabla u}^2 d\sigma(\gamma),$$
+        where $\varv_j$ denotes the $j^{th}$ coordinate of the outward normal to $B_t(x_0, r_0)$. 
+
+        \begin{solution}
+            Compare to (a), we only need to show 
+            $$\int_{B_t(x_0, r_0)} \dpard{u}{t} \dpard[2]{u}{t} + \sum_{j=1}^d \dpard{u}{x_j}\dfrac{\partial^2 u}{\partial x_j \partial t}dx
+            =\int_{\partial B_t(x_0, r_0)} \sum_{j=1}^d \dpard{u}{x_j} \dpard{u}{t} \varv_j d\sigma(\gamma).$$
+
+            With the suggested strategies, we notice the left integrand can be written as
+            \begin{align*}
+                \dpard{u}{t} \dpard[2]{u}{t} + \sum_{j=1}^d \dpard{u}{x_j}\dfrac{\partial^2 u}{\partial x_j \partial t}
+                &= \dpard{u}{t} \dpard[2]{u}{t} - \sum_{j=1}^d \dpard[2]{u}{x_j} \dpard{u}{t} + \sum_{j=1}^d \dpard{}{x_j}\left[\dpard{u}{x_j}\dpard{u}{t}\right]\\
+                &= \dpard{u}{t}\left[\dpard[2]{u}{t} - \Delta u\right] + \sum_{j=1}^d \dpard{}{x_j}\left[\dpard{u}{x_j}\dpard{u}{t}\right]\\
+                &= \sum_{j=1}^d \dpard{}{x_j}\left[\dpard{u}{x_j}\dpard{u}{t}\right].
+            \end{align*}
+            Therefore, by letting $F=F_t(x_1, \dots, x_d)$ to be a vector field: 
+            $$F_t = \dpard{u}{t} \left\langle \dpard{u}{x_1}, \dots, \dpard{u}{x_d}\right\rangle,$$
+            we may apply the Divergence theorem so that
+            \begin{align*}
+                \int_{B_t(x_0, r_0)} (\nabla \cdot F_t) dx &= \int_{\partial B_t(x_0, r_0)} (F\cdot \overrightarrow{\textbf{n}}) d\sigma(\gamma),
+            \end{align*}
+            and we have proved the identity.
+        \end{solution}
+        
+        \item Use the Cauchy-Schwarz inequality to conclude that 
+        $$\sum_{j=1}^d \dpard{u}{x_j} \dpard{u}{t} \varv_j \leq \dfrac12 \abs{\nabla u}^2,$$
+
+        and as a result, $E'(t)\leq 0$. Deduce from this that $E(t)=0$ and $u=0$.
+
+        \begin{solution}
+            Let's write $\overrightarrow{\textbf{n}}=(\varv_1, \dots, \varv_d)$, so that $\sum_{j=1}^d \varv_j^2=1$.
+            Then by Cauchy-Schwarz inequality,
+            $$\sum_{j=1}^d \left(\dpard{u}{x_j}\right)^2 = \sum_{j=1}^d \left(\dpard{u}{x_j}\right)^2\sum_{j=1}^d \varv_j^2 
+            \geq \left( \sum_{j=1}^d\dpard{u}{x_j}\varv_j \right)^2.$$
+
+            Now we adding the partial derivative of $t$ into the terms, giving us
+            \begin{align*}
+                \dfrac12 \abs{\nabla u}^2 &\geq \frac12\left[ \left( \sum_{j=1}^d\dpard{u}{x_j}\varv_j \right)^2 + \left(\dpard{u}{t}\right)^2 \right]\\
+                &\geq \dpard{u}{t} \sum_{j=1}^d \dpard{u}{x_j}\varv_j.
+            \end{align*}
+
+            We have proved that $E'(t)\leq 0$ for all $t\in [0, r_0]$.
+            To show that the energe $E(t)$ is zero on $[0, r_0]$ and thus subsequently $u=0$ too, we take any $t\in (0,r_0]$,
+            then by mean value theorem there is $c\in[0,t]$ such that
+
+            $$\dfrac{E(t)}{t} = \dfrac{E(t)-E(0)}{t} = E'(c)\leq 0 \implies E(t)\leq 0.$$
+
+            Since $E$ is nonnegative, we can conclude $E(t)=0$.
+
+        \end{solution}
+    \end{enumerate}
+\end{enumerate}
+
+
+
+\end{document}
