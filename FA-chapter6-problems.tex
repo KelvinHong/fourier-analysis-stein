@@ -455,6 +455,52 @@
 
         \end{solution}
     \end{enumerate}
+
+    \addtocounter{enumi}{3}
+
+    \item For every real number $a>0$, define the operator $(-\Delta)^a$ by the formula 
+    $$(-\Delta)^a f(x) = \int_{\mathbb R^d} (2\pi\abs\xi)^{2a} \hat f(\xi) e^{2\pi i\xi \cdot x}\, d\xi$$
+    whenever $f\in\mathcal S(\mathbb R^d)$.
+
+    \begin{enumerate}
+        \item Check that $(-\Delta)^a$ agrees with the usual definition of the $a^{\text{th}}$ power of $-\Delta$ (that is,
+        $a$ compositions of minus the Laplacian) when $a$ is a positive integer.
+
+        \begin{solution}
+            First we have 
+            \begin{align*}
+                f(x) &= \int_{\mathbb R^d} \hat f(\xi) e^{2\pi i\xi \cdot x} d\xi\\
+                (-\Delta) f(x) &= -\int_{\mathbb R^d} (2\pi i)^2 \abs{\xi}^2 \hat f(\xi) e^{2\pi i\xi \cdot x}d\xi\\
+                &= \int_{\mathbb R^d} (2\pi \abs\xi)^2 \hat f(\xi) e^{2\pi i\xi \cdot x}d\xi.
+            \end{align*}
+            This proves the definition aligns with the usual Laplacian operator at $a=1$. Now assumes it is true for some positive integer $a$,
+            then
+            \begin{align*}
+                (-\Delta) (-\Delta)^a f(x) &= (-\Delta) \int_{\mathbb R^d} (2\pi \abs{\xi})^{2a} \hat f(\xi) e^{2\pi i\xi \cdot x}d\xi\\
+                &= -\int_{\mathbb R^d} (2\pi \abs\xi)^{2a} (2\pi i)^2 \abs{\xi}^2 \hat f(\xi) e^{2\pi i\xi \cdot x}d\xi\\
+                &= \int_{\mathbb R^d} (2\pi \abs\xi)^{2(a+1)} \hat f(\xi) e^{2\pi i\xi \cdot x}d\xi\\
+                &=(-\Delta)^{a+1}f(x),
+            \end{align*}
+            thus $(-\Delta)^a$ agrees with the $a^{\text{th}}$ power of negative Laplacian for all positive integer $a$ by induction.
+        \end{solution}
+
+        \item Verify that $(-\Delta)^a (f)$ is indefinitely differentiable.
+        
+        \begin{solution}
+            For any multi-index $\alpha=(\alpha_1, \dots, \alpha_d)$ where $|\alpha|=\sum_{1\leq i\leq d}\alpha_i$
+            (I forgot whether this is the original definition, it probably is),
+            we note that 
+            $$\left(\dpard{}{x}\right)^\alpha (-\Delta)^a f(x) = \int_{\mathbb R^d}(2\pi \abs\xi)^{2a}\cdot (2\pi i)^{\abs\alpha} \xi^\alpha
+                \hat f(\xi) e^{2\pi i\xi\cdot x} \, d\xi$$
+            where $\xi^\alpha=\xi_1^{\alpha_1}\xi_2^{\alpha_2}\cdots\xi_d^{\alpha_d}$.
+            Since $f\in\mathcal S(\mathbb R^d)$, the integrand is rapidly decreasing, hence the integral value is finite.
+        \end{solution}
+
+        \item Prove that if $a$ is not an integer, then in general $(-\Delta)^a (f)$ is not rapidly decreasing.
+        \begin{solution}
+            
+        \end{solution}
+    \end{enumerate}
 \end{enumerate}
 
 
