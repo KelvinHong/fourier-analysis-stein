@@ -1,0 +1,97 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Lachaise Assignment
+% LaTeX Template
+% Version 1.0 (26/6/2018)
+%
+% This template originates from:
+% http://www.LaTeXTemplates.com
+%
+% Authors:
+% Marion Lachaise & François Févotte
+% Vel (vel@LaTeXTemplates.com)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass{article}
+
+\input{structure.tex} % Include the file specifying the document structure and custom commands
+
+%----------------------------------------------------------------------------------------
+%	ASSIGNMENT INFORMATION
+%----------------------------------------------------------------------------------------
+
+\title{Fourier Analysis Stein: Chapter 7. Problems.} % Title of the assignment
+
+\author{Kelvin Hong\\ \texttt{kh.boon2@gmail.com}} % Author name and email address
+
+\date{Xiamen University Malaysia, Asia Pacific University Malaysia --- \today} % University, school and/or department name(s) and a date
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+\maketitle % Print the title
+
+\section{Problems}
+
+\begin{enumerate}
+    \item Let $f$ be a function on the circle. For each $N\geq 1$ the discrete Fourier coefficients of $f$ are defined by
+    $$a_N(n) = \dfrac1N \sum_{k=1}^N f(e^{2\pi ik/N}) e^{-2\pi ikn/N}, \qquad \text{ for } n\in\mathbb Z.$$
+    We also let 
+    $$a(n) = \int_0^1 f(e^{2\pi ix}) e^{-2\pi nx} dx$$
+    denote the ordinary Fourier coefficients of $f$. 
+    \begin{enumerate}[(a)]
+        \item Show that $a_N(n) = a_N(n+N)$.
+        
+        \begin{solution}
+            The only term related to $n$ is $e^{-2\pi ikn/N}$, so it is trivial to see this term is periodic with a period of $N$.
+        \end{solution}
+
+        \item Prove that if $f$ is continuous, then $a_N(n)\to a(n)$ as $N\to\infty$.
+        
+        \begin{solution}
+            Let $n$ be a fixed integer. Since $f$ is continuous and periodic, it is bounded, we assume it is bounded above by a constant $M>0$.
+            Given $\varepsilon>0$, we may choose a large enough $N$ such that 
+            $$|e^{-2\pi inx} - e^{-2\pi iny}| < \dfrac\varepsilon{2M} \text{ whenever } |x-y|<\dfrac1N.$$
+            Also, $f$ is uniformly continuous because it is periodic, so we may choose another large enough $N'$ so that
+            $$|f(e^{2\pi i x}) - f(e^{2\pi i y})| < \dfrac\varepsilon2 \text{ whenever } |x-y|<\dfrac1{N'}.$$
+            We now simply choose $N_0=\max(N, N')$ so the above two can be satisfied.
+
+            For $N>N_0$ we have
+            \begin{align*}
+                |a_N(n) - a(n)| &= \abs{
+                        \sum_{k=1}^N \left[\dfrac1N f(e^{2\pi ik/N}) e^{-2\pi ikn/N} - 
+                        \int_{(k-1)/N}^{k/N} f(e^{2\pi ix}) e^{-2\pi inx}dx\right]
+                    } \\
+                    &\leq \sum_{k=1}^N \int_{(k-1)/N}^{k/N} \abs{
+                        f(e^{2\pi ik/N}) e^{-2\pi ikn/N} - f(e^{2\pi ix})e^{-2\pi inx}
+                    }dx.
+            \end{align*}
+
+            The inner term can be estimated like so:
+            \begin{align*}
+                &\abs{
+                    f(e^{2\pi ik/N}) e^{-2\pi ikn/N} - f(e^{2\pi ix})e^{-2\pi inx}
+                } \\
+                \leq &\abs{
+                    f(e^{2\pi ik/N}) - f(e^{2\pi ix})
+                } + \abs{ f(e^{2\pi ix}) } \abs{
+                    e^{-2\pi ikn/N} - e^{-2\pi inx}
+                }\\
+                < &\varepsilon.
+            \end{align*}
+            This proves $\lim_{N\to\infty}a_N(n)=a(n)$.
+        \end{solution}
+    \end{enumerate}
+\end{enumerate}
+
+
+
+\end{document}
