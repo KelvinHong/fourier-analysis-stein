@@ -90,6 +90,36 @@
             This proves $\lim_{N\to\infty}a_N(n)=a(n)$.
         \end{solution}
     \end{enumerate}
+    
+    \item If $f$ is a $C^1$ function on the circle, prove that $\abs{a_N(n)} \leq c/\abs{n}$ whenever $0<\abs{n}\leq N/2$.
+
+    \begin{solution}
+        We have to clarify that $c$ will be a constant that is independent from $n$ and $N$, possible related only to $f$.
+        We also only prove the statement for $0<n\leq N/2$, i.e., positive $n$, the proof for negative $n$ should be nearly identical.
+
+        Since $f$ is periodic and $C^1$, it is Lipchitz continuous. 
+        \href{https://math.stackexchange.com/questions/4353734/if-f-is-periodic-and-c1-class-then-lipschitz-continuous}{See this answer.}
+        Therefore, we let $M$ be a positive constant such that
+        $$\abs{f(x)-f(y)} \leq M \abs{x-y} \quad \text{ for all }x,y \text{ on the circle.}$$
+
+        We also use the identity: $|1-e^{i\theta}|=2\sin(\theta/2)\leq \theta$ for $\theta\in[0,\pi]$.
+
+        Following the hint from the book, we let $\ell=1$ if $N/4< n\leq N/2$. If otherwise $n\leq N/4$, we let $\ell$ be the
+        largest integer satisfying $\ell n/N\leq 1/2$, then since $(\ell+1)n/N>1/2$, we have 
+        $$\abs{\frac12 - \dfrac{\ell n}{N}} = \frac12 - \dfrac{\ell n}{N} < \dfrac nN \leq \frac14.$$
+        This is to verify that we can always choose $\ell$ such that $1/4 \leq \ell n/N \leq 1/2$ by construction, and that we also have
+        the following lower bound:
+        $$\dfrac{\pi}{2} \leq \dfrac{2\pi \ell n}{N} \leq \pi \implies \abs{1-e^{2\pi i\ell n/N}}\geq \sqrt2.$$
+
+        Everything is ready, we now have
+        \begin{align*}
+            \abs{a_N(n)} \sqrt2 &\leq \abs{a_N(n)} \abs{1-e^{2\pi i\ell n/N}}\\
+            &\leq \frac1N \sum_{k=1}^N M\abs{1-e^{2\pi i\ell/N}}\\
+            &=  M\abs{1-e^{2\pi i\ell/N}}\\
+            &\leq M\cdot \dfrac{2\pi \ell}N\\
+            \therefore \abs{a_N(n)}&\leq \dfrac{M\pi}{\sqrt2 n}.
+        \end{align*}
+    \end{solution}
 \end{enumerate}
 
 
