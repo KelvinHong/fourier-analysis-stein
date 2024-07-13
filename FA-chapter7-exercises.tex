@@ -120,6 +120,84 @@
             \therefore \abs{a_N(n)}&\leq \dfrac{M\pi}{\sqrt2 n}.
         \end{align*}
     \end{solution}
+
+    \item By a similar method, show that if $f$ is a $C^2$ function on the circle, then
+    $$\abs{a_N(n)} \leq c/\abs{n}^2, \quad \text{whenever } 0< \abs{n} \leq N/2.$$
+
+    As a result, prove the inversion formula for $f\in C^2$,
+    $$f(e^{2\pi ix}) = \sum_{n=-\infty}^\infty a(n) e^{2\pi inx}$$
+    from its finite version.
+
+    \begin{solution}
+        We use the second symmetric difference and the fact that $f''$ is bounded above, that 
+        $$\abs{f(e^{2\pi i(k+\ell)/N}) - 2f(e^{2\pi ik/N}) + f(e^{2\pi i(k-\ell)/N})} \leq \dfrac{M\ell^2}{N^2}.$$
+        
+        For me, I can't overcome the fact that how to apply the mean value theorem on complex domain, so I just simply let
+        $g: [0,1]\to \mathbb R$ such that $g(x) = f(e^{2\pi ix})$, then it follows that $g$ is a real-valued, periodic $C^2$ function
+        on $[0,1]$. This translate to the bound above.
+
+        By this logic and choosing a suitable integer $\ell$ as in previous solution, we find ourselves at
+        \begin{align*}
+            a_N(n)\left(1-e^{2\pi i\ell n/N}\right)^2 e^{-2\pi i\ell n/N} &= \dfrac{1}{N} \sum_{k=1}^N \\
+                &\left[f(e^{2\pi i(k+\ell)/N}-2f(e^{2\pi ik/N})+f(e^{2\pi i(k-\ell)/N})) e^{-2\pi ikn/N}\right]\\
+            \abs{a_N(n)} \abs{1-e^{2\pi i\ell n/N}}^2 &\leq \dfrac1N \sum_{k=1}^N \dfrac{M\ell^2}{N^2}\\
+            &\leq \dfrac{M\ell^2}{N^2}.
+        \end{align*}
+        Since $\ell/N\leq 1/(2n)$ and $\abs{1-e^{2\pi i\ell n/N}}\geq \sqrt2$, we manage to show that
+        $$\abs{a_N(n)}\leq \dfrac M{8n^2}.$$
+
+        (Second part no solution for now.)
+    \end{solution}
+
+    \item Let $e$ be a character on $G=\mathbb Z(N)$, the additive group of integers modulo $N$. Show that there exists a unique
+    $0\leq \ell\leq N-1$ so that 
+    $$e(k) = e_\ell(k) = e^{2\pi i\ell k/N}\quad\text{ for all } k\in\mathbb Z(N).$$
+
+    Conversely, every function of this type is a character on $\mathbb Z(N)$. Deduce that $e_\ell\mapsto \ell$ defines an
+    isomorphism from $G$ to $G$.
+
+    \begin{solution}
+        Let $e: G\to S^1$ be a character, if it is an identity character, then $e=e_0$.
+        If $e$ is non-trivial, then we let $a\in G$ so that $e(a)\neq 1$.
+        Since $n\cdot a$ is the identity element in $G$, we have that 
+        $$e(a)^n = e(n\cdot a) = 1.$$
+        This shows that $e(a)$ is a root of unity, and thus there is a unique $0\leq \ell< N$ such that $e=e_\ell$.
+
+        To show the mapping $M: \hat G \to G$ defined by $M(e_\ell) = \ell$ is an isomorphism, it is worth noting this is a
+        well-defined mapping, i.e., for $\ell, k\in \mathbb Z(N)$, $M(e_\ell)=M(e_k)$ implies $\ell=k$.
+        Moreover, this mapping is surjective and one-to-one, we only have to show it is a homomorphism:
+        $$M(e_\ell \circ e_k) = M(e_{\ell+k}) = \ell+k\pmod N.$$
+    \end{solution}
+
+    \item Show that all characters on $S^1$ are given by 
+    $$e_n(x) = e^{2\pi inx}\text{ with }n\in \mathbb Z,$$
+    and check that $e_n\mapsto n$ defines an isomorphism from $\widehat{S^1}$ to $\mathbb Z$. 
+
+    \begin{solution}
+        To make the discussion less confusing, we will use $f$ to denote a character on $S^1$, which is $f: S^1\to S^1$.
+
+        We can then define $F: \mathbb R\to S^1$ so that $F(x) = f(e^{2\pi ix})$, it is not hard to see $F$ is a periodic function
+        with a period of $1$, and also satisfying $F(x+y) = F(x)F(y)$.
+
+        Clearly $F$ is a complex-valued continuous function, with $F(0)=1$, hence there is a small enough $\delta>0$ such that
+        $c=\int_0^\delta F(y)dy\neq 0$. We then have
+        \begin{align*}
+            cF(x) &= \int_0^\delta F(x+y)dy\\
+            &= \int_x^{x+\delta} F(y)dy\\
+            \therefore cF'(x) &= F(x+\delta) - F(x)\\
+            &= [F(\delta)-1]F(x)\\
+            F'(x) &= \dfrac{F(\delta)-1}{c}F(x).
+        \end{align*} 
+        Thus, $F'(x) = AF(x)$ for some constant $A$, combine with the condition that $F(0)=1$, we have $F(x) = e^{Ax}$.
+
+        Since $F(x)$ have values in $S^1$, $A=2\pi in$ for some real number $n$.
+
+        To show that $n$ is an integer, we have $e^{2\pi in} = F(1)=f(e^{2\pi i}) = 1$, so $f(e^{2\pi ix})=e_n(x)$ for $x\in\mathbb R$.
+
+        Clearly if $n\neq m$ are integers, then $e_n\neq e_m$, and for each integer $n$, $e_n$ is a character on $S^1$. We only have to show
+        $L: \widehat{S^1} \to \mathbb Z$ is a homomorphism. For all $x\in\mathbb R$ we have $e_n\circ e_m(x) = e^{2\pi i(n+m)x}$,
+        hence $L(e_n\circ e_m) = n+m = L(e_n) + L(e_m)$.
+    \end{solution}
 \end{enumerate}
 
 
