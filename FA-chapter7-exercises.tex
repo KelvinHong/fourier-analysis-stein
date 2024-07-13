@@ -198,6 +198,63 @@
         $L: \widehat{S^1} \to \mathbb Z$ is a homomorphism. For all $x\in\mathbb R$ we have $e_n\circ e_m(x) = e^{2\pi i(n+m)x}$,
         hence $L(e_n\circ e_m) = n+m = L(e_n) + L(e_m)$.
     \end{solution}
+
+    \item Prove that all characters on $\mathbb R$ take the form
+    $$e_\xi(x) = e^{2\pi i\xi x}\quad \text{ with }\xi\in\mathbb R.$$
+    and that $e_\xi\mapsto \xi$ defines an isomorphism from $\widehat{\mathbb R}$ to $\mathbb R$. The argument in Exercise 5
+    applies here as well.
+
+    \begin{solution}
+        We use $F$ to denote a character on $\mathbb R$, which is $F: \mathbb R\to S^1$. Since $\mathbb R$ is an additive group,
+        we have $F(x+y) = F(x)F(y)$, and also $F(0)=1$.
+
+        Using what we proved in the previous exercise, there is a constant $A$ such that $F(x) = e^{Ax}$, and since $F$ maps to norm of 1,
+        $A=2\pi i\xi$ for some real number $\xi$.
+
+        Now we see that for any real $\xi$, $F$ is a character on $\mathbb R$, and $F(x) = e_\xi(x)$.
+
+        It is clear that the mapping $e_\xi\mapsto \xi$ is surjective and one-to-one, we only have to show it is a homomorphism by
+        noting that $e_{\xi+\eta}(x) = e^{2\pi i(\xi+\eta)x} = e^{2\pi i\xi x}e^{2\pi i\eta x} = e_\xi(x)e_\eta(x)$ for any $\xi, \eta\in\mathbb R$.
+
+    \end{solution}
+
+    \item Let $\xi=e^{2\pi i/N}$. Define the $N\times N$ matrix $M=(a_{jk})_{1\leq j,k\leq N}$ by $a_{jk}=N^{-1/2}\xi^{jk}$.
+    \begin{enumerate}
+        \item Show that $M$ is unitary.
+        
+        \begin{solution}
+            Write $M=\begin{bmatrix}
+                \vec{a_1} | \cdots | \vec{a_N}
+            \end{bmatrix}$ where each column vector is $\vec{a_k}=(a_{1k}\dots a_{Nk})^T$. Then we have that for $1\leq k,n\leq N$,
+            $$\vec{a_k}^* \vec{a_n} = \dfrac1N \sum_{j=1}^N \overline{\xi^{jk}} \xi^{jn} = \dfrac1N \sum_{j=1}^N \xi^{j(n-k)} = \delta_{kn}.$$
+            Where it means that $\delta_{kn}=1$ when $k=n$, and $\delta_{kn}=0$ otherwise. This proves $M$ to be a unitary matrix.
+        \end{solution}
+
+        \item Interpret the identity $(Mu, Mv) = (u,v)$ and the fact that $M^*=M^{-1}$ in terms of the Fourier series on $\mathbb Z(N)$.
+        
+        \begin{solution}
+            Not too sure what is the point of the question here.
+        \end{solution}
+    \end{enumerate}
+
+    \item Suppose that $P(x) = \sum_{n=1}^N a_ne^{2\pi i nx}$.
+    \begin{enumerate}
+        \item Show by using the Parseval identities for the circle and $\mathbb Z(N)$, that
+        $$\int_0^1 \abs{P(x)}^2 dx = \dfrac1N \sum_{j=1}^N \abs{P(j/N)}^2.$$
+        \begin{solution}
+            Notice that $P$ looks like a function on $\mathbb R$, but essentially it is a function on $\mathbb Z(N)$.
+            We let $e_n(x)=e^{2\pi inx}$ to be characters on $S^1$, then we find that $P=\sum_{n=1}^N a_n e_n$.
+            Moreover, for $x\in\mathbb Z(N)$ which by that we means $x=0,1,\dots, N-1$, we let $F(x)=P(x/N)$, so $F$ is a function on $\mathbb Z(N)$.
+
+            We note that we can define an inner product for periodic functions $f,g$ over $[0,1]$ on $\mathbb R$ as $(f,g)=\int_0^1 f\bar g$,
+            then $\{e_n\}_{1\leq n\leq N}$ is orthonormal. We thus can have
+            $$\int_0^1 \abs{P(x)}^2 dx = (P, P) = \sum_{j=1}^N \sum_{k=1}^N a_j\overline{a_k} (e_j, e_k) = \sum_{n=1}^N \abs{a_n}^2.$$
+
+            Apply Parseval identity to $F$ and using the inner product for functions on $\mathbb Z(N)$, we have
+            $$\sum_{n=1}^N \abs{a_n}^2 = (F,F) = \dfrac1N \sum_{x=1}^N  \abs{F(x)}^2 = \dfrac1N \sum_{x=1}^N \abs{P\left(\dfrac xN\right)}^2.$$
+            This completes the proof.
+        \end{solution}
+    \end{enumerate}
 \end{enumerate}
 
 
