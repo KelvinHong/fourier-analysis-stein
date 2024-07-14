@@ -146,7 +146,41 @@
         Since $\ell/N\leq 1/(2n)$ and $\abs{1-e^{2\pi i\ell n/N}}\geq \sqrt2$, we manage to show that
         $$\abs{a_N(n)}\leq \dfrac M{8n^2}.$$
 
-        (Second part no solution for now.)
+        (The proof for the inversion formula takes me a few days to think about, let's see the logic.)
+
+        Based on the properties we have collected so far, we know that $\lim_{N\to \infty} a_N(n) =a(n)$, also for each positive integer $n$,
+        we have $\abs{a_N(n)} \leq c/\abs n^2$ when $N>2n$. This means that $a(n)$ is also bounded above by $c/\abs n^2$.
+        From this fact we know at least the summation $\sum_{n=-\infty}^\infty a(n) e^{2\pi inx}$ in the inversion formula is absolutely
+        convergent.
+
+        Next, for each real number $x$, we let $\mathcal Q=\{r_1/N_1, \cdots, r_j/N_j, \cdots\}$ be a list of rational numbers that converges to $x$,
+        with the additional assumption that $r_j$ are integers and $\{N_j\}_{j\geq 1}$ is a series of strictly increasing odd numbers
+        (the text suggests we use odd $N$ while my derivation doesn't actually use it, but there is no harm to have this condition!).
+        Note that we do not require $\mathcal Q$ to be strictly increasing, nor $r_j/N_j$ to be a fraction of simplest form.
+        We can have $x=1/3$ and the series is $\mathcal Q=\{1/3, 3/9, 5/15, 7/21, \cdots\}$, the main point is $\{N_j\}_{j\geq 1}$ is
+        strictly increasing. You get the point.
+
+        Now we define
+        $$S_j=\sum_{\abs n< N_j/2} a(n) e^{2\pi inr_j/N_j}, \quad R_j=\sum_{\abs n >= N_j/2} a(n) e^{2\pi inr_j/N_j}.$$
+        Immediately we notice that $\lim_{j\to\infty} R_j=0$ because $|a(n)|=O(1/n^2)$.
+
+        Using the hint from the text, we have
+        $$f(e^{2\pi ir_j/N_j}) = \sum_{\abs n<N_j/2} a_{N_j}(n) e^{2\pi inr_j/N_j}.$$
+        We therefore have a bound:
+        $$\abs{S_j - f(e^{2\pi ir_j/N_j})} \leq \sum_{\abs n < N_j/2} \abs{a(n) - a_{N_j}(n)}.$$
+        Now we show that as $j\to\infty$, this difference will converge to $0$. Given $\varepsilon>0$, we choose $N_0$ such that
+        $\sum_{\abs n \geq N_0/2} c/\abs n^2 < \varepsilon$. Since there are only finitely many $n$ satisfying $\abs n< N_0/2$, we can
+        find a large enough $j$ such that $N_j>N_0$ and $\abs{a(n) - a_{N_j}(n)} \leq \varepsilon/N_0$ for all $\abs n< N_0/2$.
+
+        We now have
+        \begin{align*}
+            \abs{S_j - f(e^{2\pi ir_j/N_j})} &\leq \sum_{\abs n< N_0/2} \abs{a(n) - a_{N_j}(n)} + \sum_{\abs n\geq N_0/2} \abs{a(n)}
+             + \sum_{N_0/2 \leq \abs n < N_j/2} \abs{a_{N_j}(n)}\\
+             &\leq 3\varepsilon.
+        \end{align*}
+
+        Since $\lim_{j\to\infty}  R_j=0$ and $f$ is continuous, which implies $\lim_{j\to\infty} f(e^{2\pi ir_j/N_j})=f(x)$, we have proved the inversion
+        formula is true.
     \end{solution}
 
     \item Let $e$ be a character on $G=\mathbb Z(N)$, the additive group of integers modulo $N$. Show that there exists a unique
@@ -304,9 +338,51 @@
         \item The convolution of two functions $f$ and $g$ in $V$ is defined for each $a\in G$ by
         $$(f * g)(a) = \dfrac1{\abs G} \sum_{b\in G} f(b) g(a\cdot b^{-1}).$$
         Show that for all $e\in \hat G$ one has $\widehat{(f*g)} (e) = \hat f(e) \hat g(e)$.
-        
+
         \begin{solution}
-            
+            Note that $\hat f(e) = (f,e) = \dfrac1{\abs G} \sum_{b\in G} f(b)\overline{e(b)}$, we have
+            \begin{align*}
+                \text{LHS} &= \left(\dfrac1{\abs G} \sum_{b\in G} f(b) g(a\cdot b^{-1}), e\right)\\
+                &=\dfrac1{\abs G^2} \sum_{a\in G} \left(\sum_{b\in G} f(b) g(a\cdot b^{-1})\right) \overline{e(a)}\\
+                &=\dfrac1{\abs G^2} \sum_{b\in G} f(b) \left(\sum_{a\in G} g(a\cdot b^{-1}) \overline{e(a)}\right)\\
+                &=\dfrac1{\abs G^2} \sum_{b\in G} f(b) \sum_{a\in G} g(a) \overline{e(a)} \overline{e(b)}\\
+                &= \hat f(e) \hat g(e).
+            \end{align*}
+            The last 2nd transition works because we replace $a$ by $ab$, since multiply by $b$ simply become another permutation of
+            elements in $G$.
+        \end{solution}
+        
+        \item Use Theorem 2.5 to show that if $e$ is a character on $G$, then
+        $$\sum_{e\in \hat G} e(c) = 0 \quad\text{ whenever } c\in G \text{ and } c\neq 1_G.$$
+
+        \begin{solution}
+            Theorem 2.5 states that the characters on $G$ forms a basis over $V$. Therefore, we can conveniently define a function
+            $I: G\to \mathbb C$ such that $I(c)=1$ when $c=1_G$ and $I(c)=0$ otherwise. Then we have
+            $$I(c) = \sum_{e\in \hat G} \hat I(e) e(c)\quad\text{ for all }c\in G.$$
+
+            We find out that $\hat I(e)=(I,e) = (1/\abs G) \sum_{a\in G} I(a) \overline{e(a)} = 1/\abs G$, hence for $c\neq 1_G$,
+
+            $$\sum_{e\in\hat G} e(c) = \abs G I(c) = 0.$$
+        \end{solution}
+
+        \item As a result of (b), show that the Fourier series $Sf(a)=\sum_{e\in\hat G} \hat f(e) e(a)$ of a function
+        $f\in V$ takes the form
+        $$Sf = f* D,$$
+        where $D$ is defined by
+        $$D(c) = \sum_{e\in\hat G} e(c) = \begin{cases}
+            \abs G & \text{ if } c=1_G,\\
+            0 & \text{ otherwise.}
+        \end{cases}$$
+        Since $f*D = f$, we recover the fact that $Sf=f$. Loosely speaking, $D$ corresponds to a "Dirac delta functoin"; it has
+        unit mass
+        $$\dfrac1{\abs G} \sum_{c\in G} D(c) = 1,$$
+        and it has mass concentrated at the unit element in $G$. Thus $D$ has the same interpretation as the "limit" of a
+        family of good kernels.
+
+        \begin{solution}
+            Notice we have that $D=\abs G I$, so $\hat D(e)=1$ for every character $e$ on $G$. We then have
+            $$\widehat{(f*D)}(e) = \hat f(e) \hat D(e) = \hat f(e),$$
+            so $Sf=f*D$. 
         \end{solution}
     \end{enumerate}
 \end{enumerate}
