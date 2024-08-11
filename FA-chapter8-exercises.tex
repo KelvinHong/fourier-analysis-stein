@@ -1,0 +1,94 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Lachaise Assignment
+% LaTeX Template
+% Version 1.0 (26/6/2018)
+%
+% This template originates from:
+% http://www.LaTeXTemplates.com
+%
+% Authors:
+% Marion Lachaise & François Févotte
+% Vel (vel@LaTeXTemplates.com)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass{article}
+
+\input{structure.tex} % Include the file specifying the document structure and custom commands
+
+%----------------------------------------------------------------------------------------
+%	ASSIGNMENT INFORMATION
+%----------------------------------------------------------------------------------------
+
+\title{Fourier Analysis Stein: Chapter 8. Problems.} % Title of the assignment
+
+\author{Kelvin Hong\\ \texttt{kh.boon2@gmail.com}} % Author name and email address
+
+\date{Xiamen University Malaysia, Asia Pacific University Malaysia --- \today} % University, school and/or department name(s) and a date
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+\maketitle % Print the title
+
+\section{Problems}
+
+\begin{enumerate}
+    \item Prove that there are infinitely many primes by observing that if there were only finitely many, $p_1, \dots, p_N$, then
+    $$\prod_{j=1}^N \dfrac1{1-1/p_j} \geq \sum_{n=1}^\infty \dfrac1n.$$
+
+    \begin{solution}
+        Assumes there are only finitely many primes $p_1, \dots, p_N$.
+        Given a positive integer $M$, each positive integer $n\leq M$ can be expressed as a product of primes $p_1^{k_1} \cdots p_N^{k_N}$ for some
+        integers $k_1, \dots, k_N$.
+        We let $K_1, \dots, K_N$ be the maximum values of $k_1, \dots, k_N$ across all $n\leq M$.
+        Thus, we have 
+        \begin{align*}
+            \prod_{j=1}^N \dfrac1{1-1/p_j} &\geq \prod_{j=1}^N \left(\sum_{k=0}^{K_j} \dfrac1{p_j^k}\right) \geq \sum_{n=1}^M \dfrac1n.
+        \end{align*}
+        Taking the limit as $M\to\infty$, we see that the RHS diverges, which is a contradiction to our assumption.
+    \end{solution}
+
+    \item In the text we showed that there are infinitely many primes of the form $4k+3$ by a modification of Euclid's original argument.
+    Adapt this technique to prove the similar result for primes of the form $3k+2$, and for those of the form $6k+5$.
+
+    \begin{solution}
+        Assume there are only finitely many primes of the form $3k+2$, and let $p_1, \dots, p_N$ be all of them in increasing order and $p_1=5$.
+        Consider the number $n=3p_1\cdots p_N+2$. This is a number of the form $3k+2$ and $n>p_N$, so it must be composite by our assumption.
+        Since it is not divisible by $3$, it must have prime factors of the form $3k+1$ and $3k+2$.
+        If it only has prime factors of the form $3k+1$, the product of these primes would be still of the form $3k+1$, so it
+        will at least has a prime factor of the form $3k+2$. But this is a contradiction since $n$ is not divisible by any of the primes $p_1, \dots, p_N$.
+
+        For another solution, we assume there are only finitely many primes of the form $6k+5$, $q_1, \dots, q_M$, in increasing order,
+        where $q_1=11$.
+        We can let $m=6q_1\cdots q_M+5$, we can argue similarly by noting that if $m$ is composite, it must have prime factors of the form
+        $6k+1$ and $6k+5$, and also it must have at least one prime factor of the form $6k+5$, which create a contradiction.
+    \end{solution}
+
+    \item Prove that if $p$ and $q$ are relatively prime, then $\mathbb Z^* (p) \times \mathbb Z^* (q)$ is isomorphic to $\mathbb Z^* (pq)$.
+    
+    \begin{solution}
+        Let $\phi: \mathbb Z^* (p) \times \mathbb Z^* (q) \to \mathbb Z^* (pq)$ be defined by $\phi(a,b) = aq+bp \mod pq$.
+        Obviously both sets are groups, so we only need to show the mapping is one-to-one and surjective.
+
+        To show $\phi$ is one-to-one, suppose $\phi(a,b) = \phi(c,d)$, then $aq+bp \equiv cq+dp \mod pq$. There is an integer $k$ such that
+        $(a-c)q+(b-d)p = kpq.$ Rearrange to get $(a-c)q = p(kq-b+d)$. Since $p$ and $q$ are relatively prime, $p$ divides $a-c$, hence $a\equiv c\pmod p$.
+        Similarly $b\equiv d\pmod q$.
+
+        To show $\phi$ is surjective, we first let $x,y$ be integers such that $py+qx\equiv 1\pmod pq$ with $x\in\mathbb Z^*(p)$ and $y\in\mathbb Z^*(q)$.
+        For any $z\in\mathbb Z^*(pq)$, we can write $z = z\cdot 1 = z(py+qx) = zpy+zqx$. We find that $\phi(zx, zy) = z$ just because $z$ is
+        both relatively prime to $p$ and $q$. 
+    \end{solution}
+\end{enumerate}
+
+
+
+\end{document}
