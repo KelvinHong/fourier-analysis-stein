@@ -87,8 +87,77 @@
         For any $z\in\mathbb Z^*(pq)$, we can write $z = z\cdot 1 = z(py+qx) = zpy+zqx$. We find that $\phi(zx, zy) = z$ just because $z$ is
         both relatively prime to $p$ and $q$. 
     \end{solution}
+
+    \item (Skipped)
+    \item If $n$ is a positive integer, show that
+    $$n=\sum_{d|n}\varphi(d),$$
+    where $\varphi$ is the Euler phi-function.
+
+    \begin{solution}
+        For any $1\leq d\leq n$, if $d$ is a divisor of $n$, then $\varphi(n/d)$ is the number of integers $1\leq k\leq n/d$ such that
+        $\gcd(k, n/d)=1$. Let $m=kd$, then we have $\gcd(m, n)=d$. We see there are exactly $\varphi(n/d)$ integers $m$ satisfying
+        $\gcd(m,n)=d$.
+
+        Obviously for each $1\leq m\leq n$, $\gcd(m,n)$ is a divisor of $d$, so we actually have
+        $$n=\sum_{d|n} \varphi(n/d) = \sum_{d|n}\varphi(d).$$
+    \end{solution}
+
+    \item (Skipped)
+    \item Recall that for $\abs{z} < 1$, 
+    $$\log_1\left(\dfrac1{1-z}\right) = \sum_{k\geq 1}\dfrac{z^k}k.$$
+    We have seen that 
+    $$e^{\log_1\left(\dfrac1{1-z}\right)} = \dfrac1{1-z}.$$
+    \begin{enumerate}
+        \item Show that if $w=1/(1-z)$, then $\abs z<1$ if and only if $\Re(w)>1/2$.
+
+        \begin{solution}
+            We rearrange to see $z=1-1/w$, so $\abs z<1$ iff $1-\frac1w-\frac1{\bar w}+\frac1{\abs w^2}<1$, we then have
+            $$\dfrac1{\abs w^2} < \dfrac1 w+\dfrac1 {\bar w}  = \dfrac{w+\bar w}{\abs w^2} = \dfrac{2\Re(w)}{\abs w^2}.$$
+            Since the above derivation are all equivalent, we have $\abs z<1$ iff $\Re(w)>1/2$.
+        \end{solution}
+        \item Show that if $\Re(w)>1/2$ and $w=\rho e^{i\varphi}$ with $\rho>0, \abs \varphi<\pi$, then
+        $$\log_1 w = \log \rho + i\varphi.$$
+        \begin{solution}
+            We have $e^{\log_1w}=w$, so there is an integer $k$ such that $\log_1w = \log \rho + i(2\pi + \varphi)$.
+            Now view $\log_1w$ as a function of $\varphi$, when $\varphi=0$ we have that $\log_1w$ is real, and is exactly $\log\rho$,
+            since $k$ is an integer, it must be zero.
+        \end{solution}
+    \end{enumerate}
+
+    \item Let $\zeta$ denote the zeta function defined for $s>1$. 
+    \begin{enumerate}
+        \item Compare $\zeta(s)$ with $\int_1^\infty x^{-s}dx$ to show that 
+        $$\zeta(s) = \dfrac1{s-1} + O(1) \quad\text{ as }s\to 1^+.$$
+
+        \begin{solution}
+            For each integer $N\geq 2$ we let $\zeta_N(s) = \sum_{n=1}^N n^{-s}$, we have
+            \begin{align*}
+                \zeta_N(s)&\leq 1+\sum_{n=2}^N \int_{n-1}^n x^{-s}dx\\
+                &=1+\int_1^N x^{-s}dx\\
+                &= 1+\dfrac1{s-1} - \dfrac1{(s-1)N^{s-1}}\\
+                &< 1+\dfrac1{s-1}.
+            \end{align*}
+            By letting $N\to\infty$, we see $\zeta(s) \leq \dfrac1{s-1} + 1$ for every $s>1$.
+            Similarly, if we fixed $s>1$, we have
+            $$\zeta_N(s) \geq \int_1^{N+1} x^{-s}dx = \dfrac1{s-1} - \dfrac{1}{(s-1)(N+1)^{s-1}} \implies \zeta(s) \geq \dfrac1{s-1}.$$
+            Hence this also hold for every $s>1$. Note that we actually proved something stronger:
+            $$\dfrac1{s-1} \leq \zeta(s) \leq \dfrac1{s-1} + 1.$$
+        \end{solution}
+        \item Prove as a consequence that 
+        $$\sum_p \dfrac1{p^s} = \log\left(\dfrac1{s-1}\right) + O(1)\quad\text{ as } s\to 1^+.$$
+        \begin{solution}
+            Note that $\zeta(s) = \prod_p \dfrac1{1-p^{-s}}$, taking logarithm both sides give us
+            \begin{align*}
+                \log\zeta(s) &= -\sum_p \log\left(1-\dfrac1{p^s}\right) \\
+                &= \sum_p \left(\dfrac1{p^s} + \sum_{k\geq 2} \dfrac1{k p^{ks}}\right)\\
+            \end{align*}
+            The second term can be bounded as below:
+            $$0\leq \sum_{k\geq 2} \dfrac1{k p^{ks}} \leq \frac12 \sum_{k\geq 2} \dfrac1{p^{ks}} = \frac12 \cdot \dfrac{p^{-2s}}{1-p^{-s}}\leq p^{-2s}$$
+            which gives us
+            $$\log\zeta(s) = \sum_p \dfrac1{p^s} + \sum_p O\left(\dfrac1{p^{2s}}\right) = \sum_p \dfrac1{p^s} + O(1).$$
+            When taking $s\to 1^+$, we have proved the result.
+        \end{solution}
+    \end{enumerate}
 \end{enumerate}
-
-
 
 \end{document}
