@@ -158,6 +158,27 @@
             When taking $s\to 1^+$, we have proved the result.
         \end{solution}
     \end{enumerate}
+    \item Let $\chi_0$ denote that trivial Dirichlet character mod $q$, and $p_1, \dots, p_k$ the distinct prime divisors of $q$.
+    Recall that $L(s, \chi_0)=(1-p_1^{-s})\cdots (1-p_k^{-s})\zeta(s)$, and show as a consequence
+    $$L(s, \chi_0) = \dfrac{\varphi(q)}{q} \dfrac1{s-1} + O(1) \quad\text{ as } s \to 1^+.$$
+
+    \begin{solution}
+        We let $f(s) = (1-p_1^{-s})\cdots (1-p_k^{-s})$, then $f(1)=\varphi(q)/q$. Notice that $f$ is continuous at $s=1$ and has bounded
+        derivative around $s=1$, which means
+        $$\lim_{s\to 1+} \dfrac{f(s) - f(1)}{s-1}\quad\text{ is bounded.}$$
+        By that and the previous exercise we have
+        $$L(s, \chi_0) = \dfrac{f(s)}{s-1} + O(f(s))=\dfrac{\varphi(q)}q \dfrac{1}{s-1} + \dfrac{f(s)-f(1)}{s-1} + O(1)=
+            \dfrac{\varphi(q)}q \dfrac{1}{s-1} + O(1)$$
+        as $s\to 1^+$.
+    \end{solution}
+    \item Show that if $\ell$ is relatively prime to $q$, then
+    $$\sum_{p\equiv \ell} \dfrac{1}{p^s} = \dfrac1{\varphi(q)}\log\left(\dfrac1{s-1}\right) + O(1) \quad\text{ as } s\to 1^+.$$
+    This is a quantitative version of Dirichlet's theorem.
+
+    \begin{solution}
+        Using formula (4) in this chapter, we already know the second term on the RHS is $O(1)$, and since there are only finitely many primes as divisor of $q$, together
+        with previous exercise it naturally gives us the result here.
+    \end{solution}
 \end{enumerate}
 
 \end{document}
