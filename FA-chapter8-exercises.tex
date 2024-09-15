@@ -179,6 +179,23 @@
         Using formula (4) in this chapter, we already know the second term on the RHS is $O(1)$, and since there are only finitely many primes as divisor of $q$, together
         with previous exercise it naturally gives us the result here.
     \end{solution}
+    \item Use the characters for $\mathbb Z^*(3), \mathbb Z^*(4), \mathbb Z^*(5)$, and $\mathbb Z^*(6)$ to verify
+    directly  that $L(1, \chi)\neq 0$ for all non-trivial Dirichlet characters modulo $q$ when
+    $q=3,4,5$, and $6$.
+
+    \begin{solution}
+        In $\mathbb Z^*(3)$, the only non-trivial character satisfies $\chi(3k)=0, \chi(3k+1)=1, \chi(3k+2)=-1$, so 
+        $$L(1, \chi) = \sum_{k=0}^\infty \left(\frac1{3k+1} - \frac1{3k+2}\right) = \sum_{k=0}^\infty \dfrac1{(3k+1)(3k+2)}.$$
+        This is a positive sum and also $L(1, \chi) \neq 0$.
+        The same argument can be applied to $\mathbb Z^*(4), \mathbb Z^*(6)$ as we can get $L(1, \chi) = \sum_{k=0}^\infty \dfrac2{(4k+1)(4k+3)}$
+        and $\sum_{k=0}^\infty \dfrac4{(6k+1)(6k+5)}$ respectively.
+
+        For $\mathbb Z^*(5)$, there are three non-trivial characters, solely depends on whether $\chi(5k+2)=-1, i, -i$.
+        We can see that 
+        $$\chi(5k+2)=-1 \implies L(1, \chi) = \sum_{k=0}^\infty \left(\dfrac1{(5k+1)(5k+2)} - \dfrac1{(5k+3)(5k+4)}\right) > 0;$$
+        $$\chi(5k+2)=i \implies L(1, \chi) = \sum_{k=0}^\infty \dfrac3{(5k+1)(5k+4)} + i\sum_{k=0}^\infty \dfrac1{(5k+2)(5k+3)} \neq 0;$$
+        $$\chi(5k+2)=-i \implies L(1, \chi) = \sum_{k=0}^\infty \dfrac3{(5k+1)(5k+4)} - i\sum_{k=0}^\infty \dfrac1{(5k+2)(5k+3)} \neq 0.$$
+    \end{solution}
 \end{enumerate}
 
 \end{document}
