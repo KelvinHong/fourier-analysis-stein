@@ -196,6 +196,13 @@
         $$\chi(5k+2)=i \implies L(1, \chi) = \sum_{k=0}^\infty \dfrac3{(5k+1)(5k+4)} + i\sum_{k=0}^\infty \dfrac1{(5k+2)(5k+3)} \neq 0;$$
         $$\chi(5k+2)=-i \implies L(1, \chi) = \sum_{k=0}^\infty \dfrac3{(5k+1)(5k+4)} - i\sum_{k=0}^\infty \dfrac1{(5k+2)(5k+3)} \neq 0.$$
     \end{solution}
+
+    \item Suppose $\chi$ is real and non-trivial; assuming the theorem that $L(1, \chi)\neq 0$, show directly that $L(1, \chi)>0$.
+    
+    \begin{solution}
+        By the product formula $L(1,\chi)=\prod_p \dfrac1{(1-\chi(p)p^{-1})}$, since $\chi$ is real and $|\chi|\leq 1$, we have that $1-\chi(p)p^{-1}>0$,
+        hence $L(1, \chi)>0$.
+    \end{solution}
 \end{enumerate}
 
 \end{document}
